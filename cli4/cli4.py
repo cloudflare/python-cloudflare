@@ -231,7 +231,7 @@ def cli4(args):
 	if identifier2 is None:
 		identifier2 = [None]
 	for i2 in identifier2:
-		try: 
+		try:
 			if method is 'GET':
 				r = m.get(identifier1 = identifier1, identifier2 = i2, params = params)
 			elif method is 'PATCH':
@@ -255,7 +255,7 @@ def cli4(args):
 		results = results[0]
 
 	if output == 'json':
-		print json.dumps(results, indent=4, sort_keys=True)
+		print(json.dumps(results, indent=4, sort_keys=True))
 	if output == 'yaml' and yaml is not None:
-		print yaml.safe_dump(results)
+		print(yaml.safe_dump(results))
 
