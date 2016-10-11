@@ -181,7 +181,7 @@ class CloudFlare(object):
             result = response_data['result']
             if self.logger:
                 self.logger.debug('Response: %s' % (result))
-            return result
+            return response_data
 
     class add_unused(object):
         """ CloudFlare v4 API"""
