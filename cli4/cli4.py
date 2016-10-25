@@ -6,18 +6,20 @@ import sys
 import re
 import getopt
 import json
+import CloudFlare
+import CloudFlare.exceptions
+
 try:
     import yaml
 except ImportError:
     yaml = None
 
 sys.path.insert(0, os.path.abspath('..'))
-import CloudFlare
-import CloudFlare.exceptions
+
 
 def convert_zones_to_identifier(cf, zone_name):
     """zone names to numbers"""
-    params = {'name':zone_name, 'per_page':1}
+    params = {'name': zone_name, 'per_page': 1}
     try:
         zones = cf.zones.get(params=params)
     except CloudFlare.exceptions.CloudFlareAPIError as e:
@@ -31,10 +33,12 @@ def convert_zones_to_identifier(cf, zone_name):
 
     exit('cli4: %s - zone not found' % (zone_name))
 
+
 def convert_dns_record_to_identifier(cf, zone_id, dns_name):
     """dns record names to numbers"""
-    # this can return an array of results as there can be more than one DNS entry for a name.
-    params = {'name':dns_name}
+    # this can return an array of results as there can be more than one DNS
+    # entry for a name.
+    params = {'name': dns_name}
     try:
         dns_records = cf.zones.dns_records.get(zone_id, params=params)
     except CloudFlare.exceptions.CloudFlareAPIError as e:
@@ -51,6 +55,7 @@ def convert_dns_record_to_identifier(cf, zone_id, dns_name):
 
     exit('cli4: %s - dns name not found' % (dns_name))
 
+
 def convert_certificates_to_identifier(cf, certificate_name):
     """certificate names to numbers"""
     try:
@@ -64,7 +69,8 @@ def convert_certificates_to_identifier(cf, certificate_name):
         if certificate_name in certificate['hostnames']:
             return certificate['id']
 
-    exit('cli4: %s - no zone certificates found' % (certificate_name))
+    exit('cli4: %s - no zone certificates found' % certificate_name)
+
 
 def convert_organizations_to_identifier(cf, organization_name):
     """organizations names to numbers"""
@@ -79,7 +85,8 @@ def convert_organizations_to_identifier(cf, organization_name):
         if organization_name == organization['name']:
             return organization['id']
 
-    exit('cli4: %s - no organizations found' % (organization_name))
+    exit('cli4: %s - no organizations found' % organization_name)
+
 
 def convert_invites_to_identifier(cf, invite_name):
     """invite names to numbers"""
@@ -96,6 +103,7 @@ def convert_invites_to_identifier(cf, invite_name):
 
     exit('cli4: %s - no invites found' % (invite_name))
 
+
 def convert_virtual_dns_to_identifier(cf, virtual_dns_name):
     """virtual dns names to numbers"""
     try:
@@ -111,10 +119,11 @@ def convert_virtual_dns_to_identifier(cf, virtual_dns_name):
 
     exit('cli4: %s - no virtual_dns found' % (virtual_dns_name))
 
+
 def walk(m, s):
     """recursive walk of the tree"""
     for n in sorted(dir(m)):
-	if n[0] == '_':
+        if n[0] == '_':
             # internal
             continue
         if n in ['delete', 'get', 'patch', 'post', 'put']:
@@ -124,14 +133,20 @@ def walk(m, s):
         d = dir(a)
         if '_base' in d:
             # it's a known api call - lets print it and continue down the tree
-            if 'delete' in d or 'get' in d or 'patch' in d or 'post' in d or 'put' in d:
+            if 'delete' in d \
+                    or 'get' in d \
+                    or 'patch' in d \
+                    or 'post' in d \
+                    or 'put' in d:
                 # only print if a call exists for this part
-	        print s + '/' + n
+                print(s + '/' + n)
             walk(a, s + '/' + n)
+
 
 def dump_commands(cf):
     """dump a tree of all the known API commands"""
     walk(cf, '')
+
 
 def cli4(args):
     """Cloudflare API via command line"""
@@ -143,7 +158,8 @@ def cli4(args):
     method = 'GET'
 
     usage = ('usage: cli4 '
-             + '[-V|--version] [-h|--help] [-v|--verbose] [-q|--quiet] [-j|--json] [-y|--yaml] '
+             + '[-V|--version] [-h|--help] [-v|--verbose] [-q|--quiet] '
+               '[-j|--json] [-y|--yaml] '
              + '[-r|--raw] '
              + '[-d|--dump] '
              + '[--get|--patch|--post|-put|--delete] '
@@ -155,7 +171,8 @@ def cli4(args):
                                    'VhvqjyrdGPOUD',
                                    [
                                        'version',
-                                       'help', 'verbose', 'quiet', 'json', 'yaml',
+                                       'help', 'verbose', 'quiet', 'json',
+                                       'yaml',
                                        'raw',
                                        'dump',
                                        'get', 'patch', 'post', 'put', 'delete'
@@ -164,7 +181,7 @@ def cli4(args):
         exit(usage)
     for opt, arg in opts:
         if opt in ('-V', '--version'):
-            exit('Cloudflare library version: %s' % (CloudFlare.__version__))
+            exit('Cloudflare library version: %s' % CloudFlare.__version__)
         if opt in ('-h', '--help'):
             exit(usage)
         elif opt in ('-v', '--verbose'):
@@ -205,12 +222,15 @@ def cli4(args):
         elif value_string[0] in '[{' and value_string[-1] in '}]':
             # a json structure - used in pagerules
             try:
-                #value = json.loads(value) - changed to yaml code to remove unicode string issues
+                # todo: Refactor
+                # value = json.loads(value) - changed to yaml code to
+                # remove unicode string issues
                 if yaml is None:
                     exit('cli4: install yaml support')
                 value = yaml.safe_load(value_string)
             except ValueError:
-                exit('cli4: %s="%s" - can\'t parse json value' % (tag_string, value_string))
+                exit('cli4: %s="%s" - can\'t parse json value' % (
+                tag_string, value_string))
         else:
             value = value_string
         tag = tag_string
@@ -254,14 +274,15 @@ def cli4(args):
                     # raw identifier - lets just use it as-is
                     identifier1 = element
                 elif cmd[0] == 'certificates':
-                    # identifier1 = convert_certificates_to_identifier(cf, element)
                     identifier1 = convert_zones_to_identifier(cf, element)
                 elif cmd[0] == 'zones':
                     identifier1 = convert_zones_to_identifier(cf, element)
                 elif cmd[0] == 'organizations':
-                    identifier1 = convert_organizations_to_identifier(cf, element)
+                    identifier1 = convert_organizations_to_identifier(cf,
+                                                                      element)
                 elif (cmd[0] == 'user') and (cmd[1] == 'organizations'):
-                    identifier1 = convert_organizations_to_identifier(cf, element)
+                    identifier1 = convert_organizations_to_identifier(cf,
+                                                                      element)
                 elif (cmd[0] == 'user') and (cmd[1] == 'invites'):
                     identifier1 = convert_invites_to_identifier(cf, element)
                 elif (cmd[0] == 'user') and (cmd[1] == 'virtual_dns'):
@@ -273,11 +294,15 @@ def cli4(args):
                 if len(element) in [32, 40, 48] and hex_only.match(element):
                     # raw identifier - lets just use it as-is
                     identifier2 = element
-                elif (cmd[0] and cmd[0] == 'zones') and (cmd[2] and cmd[2] == 'dns_records'):
-                    identifier2 = convert_dns_record_to_identifier(cf, identifier1, element)
+                elif (cmd[0] and cmd[0] == 'zones') and (
+                    cmd[2] and cmd[2] == 'dns_records'):
+                    identifier2 = convert_dns_record_to_identifier(cf,
+                                                                   identifier1,
+                                                                   element)
                 else:
                     exit("/%s/%s :NOT CODED YET 2" % ('/'.join(cmd), element))
-                # identifier2 may be an array - this needs to be dealt with later
+                # identifier2 may be an array -
+                # this needs to be dealt with later
                 if isinstance(identifier2, list):
                     cmd.append(':' + '[' + ','.join(identifier2) + ']')
                 else:
@@ -290,7 +315,7 @@ def cli4(args):
             except AttributeError:
                 # the verb/element was not found
                 if len(cmd) == 0:
-                    exit('cli4: /%s - not found' % (element))
+                    exit('cli4: /%s - not found' % element)
                 else:
                     exit('cli4: /%s/%s - not found' % ('/'.join(cmd), element))
 
@@ -300,15 +325,18 @@ def cli4(args):
     for i2 in identifier2:
         try:
             if method is 'GET':
-                r = m.get(identifier1=identifier1, identifier2=i2, params=params)
+                r = m.get(identifier1=identifier1, identifier2=i2,
+                          params=params)
             elif method is 'PATCH':
-                r = m.patch(identifier1=identifier1, identifier2=i2, data=params)
+                r = m.patch(identifier1=identifier1, identifier2=i2,
+                            data=params)
             elif method is 'POST':
                 r = m.post(identifier1=identifier1, identifier2=i2, data=params)
             elif method is 'PUT':
                 r = m.put(identifier1=identifier1, identifier2=i2, data=params)
             elif method is 'DELETE':
-                r = m.delete(identifier1=identifier1, identifier2=i2, data=params)
+                r = m.delete(identifier1=identifier1, identifier2=i2,
+                             data=params)
             else:
                 pass
         except CloudFlare.exceptions.CloudFlareAPIError as e:
@@ -326,7 +354,6 @@ def cli4(args):
         results = results[0]
 
     if output == 'json':
-        print json.dumps(results, indent=4, sort_keys=True)
+        print(json.dumps(results, indent=4, sort_keys=True))
     if output == 'yaml' and yaml is not None:
-        print yaml.safe_dump(results)
-
+        print(yaml.safe_dump(results))

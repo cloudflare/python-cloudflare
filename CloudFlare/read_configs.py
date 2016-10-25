@@ -1,13 +1,19 @@
 """ reading the config file for Cloudflare API"""
-
+                                   
+import sys
 import os
 import re
-import ConfigParser
+
+if sys.version_info > (3,):
+    import configparser as ConfigParser
+else:
+    import ConfigParser
+
 
 def read_configs():
     """ reading the config file for Cloudflare API"""
 
-    # envioronment variables override config files
+    # environment variables override config files
     email = os.getenv('CF_API_EMAIL')
     token = os.getenv('CF_API_KEY')
     certtoken = os.getenv('CF_API_CERTKEY')

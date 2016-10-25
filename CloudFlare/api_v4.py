@@ -1,5 +1,6 @@
 """ API core commands for Cloudflare API"""
 
+
 def api_v4(self):
     """ API core commands for Cloudflare API"""
 
@@ -50,7 +51,8 @@ def api_v4(self):
             self._add_with_auth(self._base, "zones", "custom_certificates"))
     zones_custom_certificates = getattr(zones, "custom_certificates")
     setattr(zones_custom_certificates, "prioritize",
-            self._add_with_auth(self._base, "zones", "custom_certificates/prioritize"))
+            self._add_with_auth(self._base, "zones",
+                                "custom_certificates/prioritize"))
     setattr(zones, "custom_pages",
             self._add_with_auth(self._base, "zones", "custom_pages"))
     setattr(zones, "dns_records",
@@ -74,7 +76,8 @@ def api_v4(self):
     setattr(zones_settings, "always_online",
             self._add_with_auth(self._base, "zones", "settings/always_online"))
     setattr(zones_settings, "browser_cache_ttl",
-            self._add_with_auth(self._base, "zones", "settings/browser_cache_ttl"))
+            self._add_with_auth(self._base, "zones",
+                                "settings/browser_cache_ttl"))
     setattr(zones_settings, "browser_check",
             self._add_with_auth(self._base, "zones", "settings/browser_check"))
     setattr(zones_settings, "cache_level",
@@ -82,11 +85,14 @@ def api_v4(self):
     setattr(zones_settings, "challenge_ttl",
             self._add_with_auth(self._base, "zones", "settings/challenge_ttl"))
     setattr(zones_settings, "development_mode",
-            self._add_with_auth(self._base, "zones", "settings/development_mode"))
+            self._add_with_auth(self._base, "zones",
+                                "settings/development_mode"))
     setattr(zones_settings, "email_obfuscation",
-            self._add_with_auth(self._base, "zones", "settings/email_obfuscation"))
+            self._add_with_auth(self._base, "zones",
+                                "settings/email_obfuscation"))
     setattr(zones_settings, "hotlink_protection",
-            self._add_with_auth(self._base, "zones", "settings/hotlink_protection"))
+            self._add_with_auth(self._base, "zones",
+                                "settings/hotlink_protection"))
     setattr(zones_settings, "ip_geolocation",
             self._add_with_auth(self._base, "zones", "settings/ip_geolocation"))
     setattr(zones_settings, "ipv6",
@@ -96,31 +102,40 @@ def api_v4(self):
     setattr(zones_settings, "mirage",
             self._add_with_auth(self._base, "zones", "settings/mirage"))
     setattr(zones_settings, "mobile_redirect",
-            self._add_with_auth(self._base, "zones", "settings/mobile_redirect"))
+            self._add_with_auth(self._base, "zones",
+                                "settings/mobile_redirect"))
     setattr(zones_settings, "origin_error_page_pass_thru",
-            self._add_with_auth(self._base, "zones", "settings/origin_error_page_pass_thru"))
+            self._add_with_auth(self._base, "zones",
+                                "settings/origin_error_page_pass_thru"))
     setattr(zones_settings, "polish",
             self._add_with_auth(self._base, "zones", "settings/polish"))
     setattr(zones_settings, "prefetch_preload",
-            self._add_with_auth(self._base, "zones", "settings/prefetch_preload"))
+            self._add_with_auth(self._base, "zones",
+                                "settings/prefetch_preload"))
     setattr(zones_settings, "response_buffering",
-            self._add_with_auth(self._base, "zones", "settings/response_buffering"))
+            self._add_with_auth(self._base, "zones",
+                                "settings/response_buffering"))
     setattr(zones_settings, "rocket_loader",
             self._add_with_auth(self._base, "zones", "settings/rocket_loader"))
     setattr(zones_settings, "security_header",
-            self._add_with_auth(self._base, "zones", "settings/security_header"))
+            self._add_with_auth(self._base, "zones",
+                                "settings/security_header"))
     setattr(zones_settings, "security_level",
             self._add_with_auth(self._base, "zones", "settings/security_level"))
     setattr(zones_settings, "server_side_exclude",
-            self._add_with_auth(self._base, "zones", "settings/server_side_exclude"))
+            self._add_with_auth(self._base, "zones",
+                                "settings/server_side_exclude"))
     setattr(zones_settings, "sort_query_string_for_cache",
-            self._add_with_auth(self._base, "zones", "settings/sort_query_string_for_cache"))
+            self._add_with_auth(self._base, "zones",
+                                "settings/sort_query_string_for_cache"))
     setattr(zones_settings, "ssl",
             self._add_with_auth(self._base, "zones", "settings/ssl"))
     setattr(zones_settings, "tls_client_auth",
-            self._add_with_auth(self._base, "zones", "settings/tls_client_auth"))
+            self._add_with_auth(self._base, "zones",
+                                "settings/tls_client_auth"))
     setattr(zones_settings, "true_client_ip_header",
-            self._add_with_auth(self._base, "zones", "settings/true_client_ip_header"))
+            self._add_with_auth(self._base, "zones",
+                                "settings/true_client_ip_header"))
     setattr(zones_settings, "tls_1_2_only",
             self._add_with_auth(self._base, "zones", "settings/tls_1_2_only"))
     setattr(zones_settings, "tls_1_3",
@@ -152,12 +167,15 @@ def api_v4(self):
             self._add_with_auth(self._base, "zones", "firewall/waf/packages"))
     zones_firewall_waf_packages = getattr(zones_firewall_waf, "packages")
     setattr(zones_firewall_waf_packages, "groups",
-            self._add_with_auth(self._base, "zones", "firewall/waf/packages", "groups"))
+            self._add_with_auth(self._base, "zones", "firewall/waf/packages",
+                                "groups"))
     setattr(zones_firewall_waf_packages, "rules",
-            self._add_with_auth(self._base, "zones", "firewall/waf/packages", "rules"))
+            self._add_with_auth(self._base, "zones", "firewall/waf/packages",
+                                "rules"))
     zones_firewall_access_rules = getattr(zones_firewall, "access_rules")
     setattr(zones_firewall_access_rules, "rules",
-            self._add_with_auth(self._base, "zones", "firewall/access_rules/rules"))
+            self._add_with_auth(self._base, "zones",
+                                "firewall/access_rules/rules"))
 
     # The API commands for /railguns/
     setattr(self, "railguns",
@@ -180,17 +198,21 @@ def api_v4(self):
             self._add_with_auth(self._base, "organizations", "railguns"))
     organizations_railguns = getattr(organizations, "railguns")
     setattr(organizations_railguns, "zones",
-            self._add_with_auth(self._base, "organizations", "railguns", "zones"))
+            self._add_with_auth(self._base, "organizations", "railguns",
+                                "zones"))
     setattr(organizations, "roles",
             self._add_with_auth(self._base, "organizations", "roles"))
     setattr(organizations, "firewall",
             self._add_unused(self._base, "organizations", "firewall"))
     organizations_firewall = getattr(organizations, "firewall")
     setattr(organizations_firewall, "access_rules",
-            self._add_unused(self._base, "organizations", "firewall/access_rules"))
-    organizations_firewall_access_rules = getattr(organizations_firewall, "access_rules")
+            self._add_unused(self._base, "organizations",
+                             "firewall/access_rules"))
+    organizations_firewall_access_rules = getattr(organizations_firewall,
+                                                  "access_rules")
     setattr(organizations_firewall_access_rules, "rules",
-            self._add_with_auth(self._base, "organizations", "firewall/access_rules/rules"))
+            self._add_with_auth(self._base, "organizations",
+                                "firewall/access_rules/rules"))
     setattr(organizations, "virtual_dns",
             self._add_with_auth(self._base, "organizations", "virtual_dns"))
 
@@ -225,7 +247,8 @@ def api_v4(self):
             self._add_unused(self._base, "user/load_balancers"))
     user_load_balancers = getattr(user, "load_balancers")
     setattr(user_load_balancers, "global_policies",
-            self._add_with_auth(self._base, "user/load_balancers/global_policies"))
+            self._add_with_auth(self._base,
+                                "user/load_balancers/global_policies"))
     setattr(user_load_balancers, "monitors",
             self._add_with_auth(self._base, "user/load_balancers/monitors"))
     setattr(user_load_balancers, "notifiers",
@@ -236,4 +259,3 @@ def api_v4(self):
             self._add_with_auth(self._base, "user/load_balancers/pools"))
     setattr(user_load_balancers, "maps",
             self._add_with_auth(self._base, "user/load_balancers/maps"))
-

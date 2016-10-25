@@ -5,6 +5,7 @@ import sys
 
 from cli4 import cli4
 
+
 def main(args=None):
     """Cloudflare API via command line"""
     if args is None:

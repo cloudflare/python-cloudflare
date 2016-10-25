@@ -1,7 +1,7 @@
 """ Cloudflare v4 API"""
 
 try:
-    from cloudflare import CloudFlare
+    from .cloudflare import CloudFlare
 except:
     pass
 

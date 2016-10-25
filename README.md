@@ -47,10 +47,10 @@ All example code is available on GitHub (see [package](https://github.com/cloudf
 A very simple listing of zones within your account; including the IPv6 status of the zone.
 
 ```python
-import CloudFlare
+from CloudFlare.cloudflare import CloudFlare
 
 def main():
-    cf = CloudFlare.CloudFlare()
+    cf = CloudFlare()
     zones = cf.zones.get(params = {'per_page':50})
     for zone in zones:
         zone_name = zone['name']
@@ -59,7 +59,7 @@ def main():
         ipv6_status = settings_ipv6['value']
         settings_ssl = cf.zones.settings.ssl.get(zone_id)
         ssl_status = settings_ssl['value']
-        print zone_id, ssl_status, ipv6_status, zone_name
+        print(zone_id, ssl_status, ipv6_status, zone_name)
 
 if __name__ == '__main__':
     main()
@@ -68,13 +68,12 @@ if __name__ == '__main__':
 A more complex example follows.
 
 ```python
-import CloudFlare
-import CloudFlare.exceptions
+from CloudFlare.cloudflare import CloudFlare,exceptions
 
 def main():
     zone_name = 'example.com'
 
-    cf = CloudFlare.CloudFlare()
+    cf = CloudFlare()
 
     # query for the zone name and expect only one value back
     try:
@@ -94,7 +93,7 @@ def main():
     # request the DNS records from that zone
     try:
         dns_records = cf.zones.dns_records.get(zone_id)
-    except CloudFlare.exceptions.CloudFlareAPIError as e:
+    except exceptions.CloudFlareAPIError as e:
         exit('/zones/dns_records.get %d %s - api call failed' % (e, e))
 
     # print the results - first the zone name
@@ -124,19 +123,19 @@ When you create a _CloudFlare_ class you can pass up to four paramaters.
  * Optional Debug flag (True/False)
 
 ```python
-import CloudFlare
+from CloudFlare.cloudflare import CloudFlare,exceptions
 
-    # A minimal call - reading values from environment variables or configuration file
-    cf = CloudFlare.CloudFlare()
+# A minimal call - reading values from environment variables or configuration file
+cf = CloudFlare()
 
-    # A minimal call with debug enabled
-    cf = CloudFlare.CloudFlare(debug=True))
+# A minimal call with debug enabled
+cf = CloudFlare(debug=True))
 
-    # A full blown call with passed basic account information
-    cf = CloudFlare.CloudFlare(email='user@example.com', token='00000000000000000000000000000000')
+# A full blown call with passed basic account information
+cf = CloudFlare(email='user@example.com', token='00000000000000000000000000000000')
 
-    # A full blown call with passed basic account information and CA-Origin info
-    cf = CloudFlare.CloudFlare(email='user@example.com', token='00000000000000000000000000000000', certtoken='v1.0-...')
+# A full blown call with passed basic account information and CA-Origin info
+cf = CloudFlare(email='user@example.com', token='00000000000000000000000000000000', certtoken='v1.0-...')
 ```
 
 If the account email and API key are not passed when you create the class, then they are retreived from either the users exported shell environment variables or the .cloudflare.cfg or ~/.cloudflare.cfg or ~/.cloudflare/cloudflare.cfg files, in that order.
@@ -185,10 +184,10 @@ You can return all the paging values by calling the class with raw=True. Here's 
 #!/usr/bin/env python
 
 import json
-import CloudFlare
+from CloudFlare.cloudflare import CloudFlare
 
 def main():
-    cf = CloudFlare.CloudFlare()
+    cf = CloudFlare()
     zones = cf.zones.get(params={'per_page':5})
     print len(zones)
 
@@ -208,10 +207,10 @@ When you add the raw option; the APIs full structure is returned. This means the
 #!/usr/bin/env python
 
 import json
-import CloudFlare
+from CloudFlare.cloudflare import CloudFlare
 
 def main():
-    cf = CloudFlare.CloudFlare(raw=True)
+    cf = CloudFlare(raw=True)
     zones = cf.zones.get(params={'per_page':5})
     print zones.length()
     print json.dumps(zones, indent=4, sort_keys=True)
@@ -247,13 +246,12 @@ The library will raise **CloudFlareAPIError** when the API call fails.
 The exception returns both an integer and textual message in one value.
 
 ```python
-import CloudFlare
-import CloudFlare.exceptions
+from CloudFlare.cloudflare import CloudFlare,exceptions
 
     ...
     try
         r = ...
-    except CloudFlare.exceptions.CloudFlareAPIError as e:
+    except exceptions.CloudFlareAPIError as e:
         exit('api error: %d %s' % (e, e))
     ...
 ```
@@ -265,13 +263,13 @@ You can itterate over that array to see the additional error.
 
 ```python
 import sys
-import CloudFlare
-import CloudFlare.exceptions
+from CloudFlare.cloudflare import CloudFlare,exceptions
+
 
     ...
     try
         r = ...
-    except CloudFlare.exceptions.CloudFlareAPIError as e:
+    except exceptions.CloudFlareAPIError as e:
         if len(e) > 0:
             sys.stderr.write('api error - more than one error value returned!\n')
             for x in e:
@@ -290,11 +288,11 @@ The [examples](https://github.com/cloudflare/python-cloudflare/tree/master/examp
 #!/usr/bin/env python
 
 import sys
-import CloudFlare
+from CloudFlare.cloudflare import CloudFlare
 
 def main():
     zone_name = sys.argv[1]
-    cf = CloudFlare.CloudFlare()
+    cf = CloudFlare()
     zone_info = cf.zones.post(data={'jump_start':False, 'name': zone_name})
     zone_id = zone_info['id']
 
@@ -605,12 +603,16 @@ The solution can be found [here](https://urllib3.readthedocs.org/en/latest/secur
 
 ## Python 2.x vs 3.x support
 
+```
 As of May/June 2016 the code is now tested againt pylint.
 This was required in order to move the codebase into Python 3.x.
 The motivation for this came from [Danielle Madeley (danni)](https://github.com/danni).
 
 While the codebase has been edited to run on Python 3.x, there's not been enough Python 3.x testing performed.
 If you can help in this regard; please contact the maintainers.
+```
+
+As of October 2016, the code was updated to be compatible with 3.5. There is currently no testing. 
 
 ## Credit
 

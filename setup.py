@@ -4,6 +4,7 @@
 from setuptools import setup, find_packages
 from CloudFlare import __version__
 
+
 def main():
     """Cloudflare API code - setup.py file"""
 
@@ -21,12 +22,8 @@ def main():
         # maintainer_email='martin@cloudflare.com',
         url='https://github.com/cloudflare/python-cloudflare',
         license='MIT',
-        packages=['cli4', 'examples']+find_packages(),
-        #package_dir={'CloudFlare': 'lib'}
-        #package_dir={'CloudFlare/examples': 'examples'},
-        #package_data={'cloudflare-examples': ["examples/*"]},
+        packages=['cli4', 'examples'] + find_packages(),
         include_package_data=True,
-        #data_files = [('man/man1', ['cli4/cli4.man'])],
         install_requires=['requests', 'logger', 'future', 'pyyaml'],
         keywords='cloudflare',
         entry_points={
@@ -50,6 +47,7 @@ def main():
             'Programming Language :: Python :: 3.6'
         ]
     )
+
 
 if __name__ == '__main__':
     main()
