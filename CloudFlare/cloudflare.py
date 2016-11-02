@@ -476,8 +476,6 @@ class CloudFlare(object):
             email = conf_email
         if token is None:
             token = conf_token
-        if certtoken is None:
-            certtoken = conf_certtoken
 
         self._base = self._v4base(email, token, certtoken, base_url, debug, raw)
 
