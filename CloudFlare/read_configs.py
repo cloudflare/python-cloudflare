@@ -2,7 +2,7 @@
 
 import os
 import re
-import ConfigParser
+from six.moves import configparser as ConfigParser
 
 def read_configs():
     """ reading the config file for Cloudflare API"""
