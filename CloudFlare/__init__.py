@@ -1,8 +1,5 @@
 """ Cloudflare v4 API"""
 
-try:
-    from cloudflare import CloudFlare
-except:
-    pass
+from CloudFlare.cloudflare import CloudFlare
 
 __version__ = '1.3.2'
