@@ -1,8 +1,15 @@
 """ reading the config file for Cloudflare API"""
 
+from __future__ import absolute_import
+
 import os
 import re
-import ConfigParser
+
+try:
+    import ConfigParser
+except:
+    import configparser as ConfigParser
+
 
 def read_configs():
     """ reading the config file for Cloudflare API"""

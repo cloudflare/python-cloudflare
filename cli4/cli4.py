@@ -1,23 +1,28 @@
 #!/usr/bin/env python
 """Cloudflare API via command line"""
 
-import os
-import sys
-import re
+from __future__ import absolute_import
+
 import getopt
 import json
+import os
+import re
+import sys
+
 try:
     import yaml
 except ImportError:
     yaml = None
 
 sys.path.insert(0, os.path.abspath('..'))
-import CloudFlare
-import CloudFlare.exceptions
+
+import CloudFlare  # noqa
+import CloudFlare.exceptions  # noqa
+
 
 def convert_zones_to_identifier(cf, zone_name):
     """zone names to numbers"""
-    params = {'name':zone_name, 'per_page':1}
+    params = {'name': zone_name, 'per_page': 1}
     try:
         zones = cf.zones.get(params=params)
     except CloudFlare.exceptions.CloudFlareAPIError as e:
@@ -31,10 +36,11 @@ def convert_zones_to_identifier(cf, zone_name):
 
     exit('cli4: %s - zone not found' % (zone_name))
 
+
 def convert_dns_record_to_identifier(cf, zone_id, dns_name):
     """dns record names to numbers"""
     # this can return an array of results as there can be more than one DNS entry for a name.
-    params = {'name':dns_name}
+    params = {'name': dns_name}
     try:
         dns_records = cf.zones.dns_records.get(zone_id, params=params)
     except CloudFlare.exceptions.CloudFlareAPIError as e:
@@ -51,6 +57,7 @@ def convert_dns_record_to_identifier(cf, zone_id, dns_name):
 
     exit('cli4: %s - dns name not found' % (dns_name))
 
+
 def convert_certificates_to_identifier(cf, certificate_name):
     """certificate names to numbers"""
     try:
@@ -65,6 +72,7 @@ def convert_certificates_to_identifier(cf, certificate_name):
             return certificate['id']
 
     exit('cli4: %s - no zone certificates found' % (certificate_name))
+
 
 def convert_organizations_to_identifier(cf, organization_name):
     """organizations names to numbers"""
@@ -81,6 +89,7 @@ def convert_organizations_to_identifier(cf, organization_name):
 
     exit('cli4: %s - no organizations found' % (organization_name))
 
+
 def convert_invites_to_identifier(cf, invite_name):
     """invite names to numbers"""
     try:
@@ -96,6 +105,7 @@ def convert_invites_to_identifier(cf, invite_name):
 
     exit('cli4: %s - no invites found' % (invite_name))
 
+
 def convert_virtual_dns_to_identifier(cf, virtual_dns_name):
     """virtual dns names to numbers"""
     try:
@@ -110,6 +120,7 @@ def convert_virtual_dns_to_identifier(cf, virtual_dns_name):
             return virtual_dns['id']
 
     exit('cli4: %s - no virtual_dns found' % (virtual_dns_name))
+
 
 def walk(m, s):
     """recursive walk of the tree"""
@@ -129,9 +140,11 @@ def walk(m, s):
                 print(s + '/' + n)
             walk(a, s + '/' + n)
 
+
 def dump_commands(cf):
     """dump a tree of all the known API commands"""
     walk(cf, '')
+
 
 def cli4(args):
     """Cloudflare API via command line"""
@@ -205,7 +218,7 @@ def cli4(args):
         elif value_string[0] in '[{' and value_string[-1] in '}]':
             # a json structure - used in pagerules
             try:
-                #value = json.loads(value) - changed to yaml code to remove unicode string issues
+                # value = json.loads(value) - changed to yaml code to remove unicode string issues
                 if yaml is None:
                     exit('cli4: install yaml support')
                 value = yaml.safe_load(value_string)
@@ -329,4 +342,3 @@ def cli4(args):
         print(json.dumps(results, indent=4, sort_keys=True))
     if output == 'yaml' and yaml is not None:
         print(yaml.safe_dump(results))
-

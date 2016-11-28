@@ -1,8 +1,12 @@
 """ Logging for Cloudflare API"""
+
+from __future__ import absolute_import
+
 import logging
 
 DEBUG = 0
 INFO = 1
+
 
 class Logger(object):
     """ Logging for Cloudflare API"""

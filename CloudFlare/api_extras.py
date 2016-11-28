@@ -1,6 +1,9 @@
 """ API extras for Cloudflare API"""
 
+from __future__ import absolute_import
+
 import re
+
 
 def api_extras(self, extras=None):
     """ API extras for Cloudflare API"""
@@ -54,4 +57,3 @@ def api_extras(self, extras=None):
                 setattr(current, element,
                         self._add_with_auth(self._base, api_call_part1))
             current = getattr(current, element)
-

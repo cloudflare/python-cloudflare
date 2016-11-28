@@ -1,5 +1,6 @@
 """ API core commands for Cloudflare API"""
 
+
 def api_v4(self):
     """ API core commands for Cloudflare API"""
 

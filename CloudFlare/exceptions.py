@@ -1,5 +1,6 @@
 """ errors for Cloudflare API"""
 
+
 class CloudFlareError(Exception):
     """ errors for Cloudflare API"""
 
@@ -9,8 +10,10 @@ class CloudFlareError(Exception):
         def __init__(self, code, message):
             self.code = code
             self.message = message
+
         def __int__(self):
             return self.code
+
         def __str__(self):
             return self.message
 
@@ -19,7 +22,8 @@ class CloudFlareError(Exception):
 
         self.e = self._code_message(int(code), str(message))
         self.error_chain = None
-        if error_chain != None:
+
+        if error_chain is not None:
             self.error_chain = []
             for e in error_chain:
                 self.error_chain.append(self._code_message(int(e['code']), str(e['message'])))
@@ -38,7 +42,7 @@ class CloudFlareError(Exception):
     def __len__(self):
         """ Cloudflare API errors can contain a chain of errors"""
 
-        if self.error_chain == None:
+        if self.error_chain is None:
             return 0
         else:
             return len(self.error_chain)
@@ -51,22 +55,23 @@ class CloudFlareError(Exception):
     def __iter__(self):
         """ Cloudflare API errors can contain a chain of errors"""
 
-        if self.error_chain == None:
+        if self.error_chain is None:
             raise StopIteration
         for e in self.error_chain:
             yield e
 
     def next(self):
-        if self.error_chain == None:
+        if self.error_chain is None:
             raise StopIteration()
+
 
 class CloudFlareAPIError(CloudFlareError):
     """ errors for Cloudflare API"""
 
     pass
 
+
 class CloudFlareInternalError(CloudFlareError):
     """ errors for Cloudflare API"""
 
     pass
-
