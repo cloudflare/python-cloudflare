@@ -4,12 +4,21 @@ import json
 import urllib
 import requests
 
-from logger import Logger
-from utils import sanitize_secrets
-from read_configs import read_configs
-from api_v4 import api_v4
-from api_extras import api_extras
-from exceptions import CloudFlareError, CloudFlareAPIError, CloudFlareInternalError
+# py3 compatible
+try:
+    from logger import Logger
+    from utils import sanitize_secrets
+    from read_configs import read_configs
+    from api_v4 import api_v4
+    from api_extras import api_extras
+    from exceptions import CloudFlareError, CloudFlareAPIError, CloudFlareInternalError
+except:
+    from .logger import Logger
+    from .utils import sanitize_secrets
+    from .read_configs import read_configs
+    from .api_v4 import api_v4
+    from .api_extras import api_extras
+    from .exceptions import CloudFlareError, CloudFlareAPIError, CloudFlareInternalError
 
 BASE_URL = 'https://api.cloudflare.com/client/v4'
 

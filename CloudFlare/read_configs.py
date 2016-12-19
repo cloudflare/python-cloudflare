@@ -2,7 +2,11 @@
 
 import os
 import re
-import ConfigParser
+# py3 compatible
+try:
+	from ConfigParser import RawConfigParser, NoOptionError, NoSectionError
+except:
+    from configparser import ConfigParser, RawConfigParser, NoOptionError, NoSectionError
 
 def read_configs():
     """ reading the config file for Cloudflare API"""
@@ -14,7 +18,7 @@ def read_configs():
     extras = os.getenv('CF_API_EXTRAS')
 
     # grab values from config files
-    config = ConfigParser.RawConfigParser()
+    config = RawConfigParser()
     config.read([
         '.cloudflare.cfg',
         os.path.expanduser('~/.cloudflare.cfg'),
@@ -24,25 +28,25 @@ def read_configs():
     if email is None:
         try:
             email = re.sub(r"\s+", '', config.get('CloudFlare', 'email'))
-        except (ConfigParser.NoOptionError, ConfigParser.NoSectionError):
+        except (NoOptionError, NoSectionError):
             email = None
 
     if token is None:
         try:
             token = re.sub(r"\s+", '', config.get('CloudFlare', 'token'))
-        except (ConfigParser.NoOptionError, ConfigParser.NoSectionError):
+        except (NoOptionError, NoSectionError):
             token = None
 
     if certtoken is None:
         try:
             certtoken = re.sub(r"\s+", '', config.get('CloudFlare', 'certtoken'))
-        except (ConfigParser.NoOptionError, ConfigParser.NoSectionError):
+        except (NoOptionError, NoSectionError):
             certtoken = None
 
     if extras is None:
         try:
             extras = re.sub(r"\s+", ' ', config.get('CloudFlare', 'extras'))
-        except (ConfigParser.NoOptionError, ConfigParser.NoSectionError):
+        except (NoOptionError, NoSectionError):
             extras = None
 
         if extras:
