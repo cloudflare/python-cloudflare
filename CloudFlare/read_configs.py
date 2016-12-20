@@ -4,7 +4,7 @@ import os
 import re
 # py3 compatible
 try:
-	from ConfigParser import RawConfigParser, NoOptionError, NoSectionError
+    from ConfigParser import RawConfigParser, NoOptionError, NoSectionError
 except:
     from configparser import ConfigParser, RawConfigParser, NoOptionError, NoSectionError
 
