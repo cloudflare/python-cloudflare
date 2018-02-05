@@ -146,14 +146,14 @@ class CloudFlare(object):
                 if method == 'GET':
                     response = requests.get(url, headers=headers, params=params, data=data)
                 elif method == 'POST':
-                    response = requests.post(url, headers=headers, params=params, json=data, files=files)
+                    response = requests.post(url, headers=headers, params=params, data=data, files=files)
                 elif method == 'PUT':
-                    response = requests.put(url, headers=headers, params=params, json=data)
+                    response = requests.put(url, headers=headers, params=params, data=data)
                 elif method == 'DELETE':
-                    response = requests.delete(url, headers=headers, json=data)
+                    response = requests.delete(url, headers=headers, data=data)
                 elif method == 'PATCH':
                     response = requests.request('PATCH', url,
-                                                headers=headers, params=params, json=data)
+                                                headers=headers, params=params, data=data)
                 else:
                     # should never happen
                     raise CloudFlareAPIError(0, 'method not supported')
