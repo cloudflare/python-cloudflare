@@ -149,6 +149,8 @@ def zones_firewall(self):
     self.add('AUTH', "zones", "firewall/waf/packages")
     self.add('AUTH', "zones", "firewall/waf/packages", "groups")
     self.add('AUTH', "zones", "firewall/waf/packages", "rules")
+    self.add('AUTH', "zones", "firewall/events")
+
 
 def zones_rate_limits(self):
     """ API core commands for Cloudflare API"""
