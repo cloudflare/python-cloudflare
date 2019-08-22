@@ -13,6 +13,7 @@ def api_v4(self):
 
     # The API commands for /zones/
     zones(self)
+    zones_spectrum(self)
     zones_amp(self)
     zones_analytics(self)
     zones_argo(self)
@@ -86,6 +87,12 @@ def zones(self):
     self.add('AUTH', "zones", "secondary_dns")
     self.add('AUTH', "zones", "subscription")
     self.add('AUTH', "zones", "subscriptions")
+
+def zones_spectrum(self):
+     """ API core commands for Cloudflare API"""
+
+     self.add('VOID', "zones", 'spectrum')
+     self.add('AUTH', "zones", 'spectrum/apps')
 
 def zones_settings(self):
     """ API core commands for Cloudflare API"""
