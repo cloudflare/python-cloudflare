@@ -836,11 +836,11 @@ class CloudFlare(object):
         if certtoken is None:
             certtoken = conf_certtoken
 
-        if email is '':
+        if email == '':
             email = None
-        if token is '':
+        if token == '':
             token = None
-        if certtoken is '':
+        if certtoken == '':
             certtoken = None
         self._base = self._v4base(email, token, certtoken, base_url, debug, raw, use_sessions)
 
