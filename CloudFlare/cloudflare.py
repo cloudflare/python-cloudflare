@@ -179,7 +179,7 @@ class CloudFlare(object):
 
             if parts[1] is not None or (data is not None and method == 'GET'):
                 if identifier1 is None:
-                    raise CloudFlareAPIError(0, 'You must specify identifier1')
+                    raise CloudFlareAPIError(0, 'You must specify identifier!')
                 if identifier2 is None:
                     url = (self.base_url + '/'
                            + parts[0] + '/'
