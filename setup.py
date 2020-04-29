@@ -22,16 +22,10 @@ def main():
         long_description=long_description,
         author='Martin J. Levy',
         author_email='martin@cloudflare.com',
-        # maintainer='Martin J. Levy',
-        # maintainer_email='martin@cloudflare.com',
         url='https://github.com/cloudflare/python-cloudflare',
         license='MIT',
-        packages=['cli4', 'examples']+find_packages(),
-        #package_dir={'CloudFlare': 'lib'}
-        #package_dir={'CloudFlare/examples': 'examples'},
-        #package_data={'cloudflare-examples': ["examples/*"]},
+        packages=['CloudFlare', 'cli4'],
         include_package_data=True,
-        #data_files = [('man/man1', ['cli4/cli4.man'])],
         install_requires=['requests', 'future', 'pyyaml', 'jsonlines'],
         keywords='cloudflare',
         entry_points={
