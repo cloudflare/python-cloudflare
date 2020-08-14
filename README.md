@@ -65,7 +65,7 @@ if __name__ == '__main__':
     main()
 ```
 
-This example works when there are less than 50 zones (50 is the default number of values returned from a query like this).
+This example works when there are less than 21 zones (20 is the default number of values returned from a query like this).
 
 Now lets expand on that and add code to show the IPv6 and SSL status of the zones. Lets also query 100 zones.
 
