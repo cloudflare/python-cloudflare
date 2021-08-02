@@ -59,7 +59,7 @@ def main():
     for zone in zones:
         zone_id = zone['id']
         zone_name = zone['name']
-        print zone_id, zone_name
+        print(zone_id, zone_name)
 
 if __name__ == '__main__':
     main()
@@ -85,7 +85,7 @@ def main():
         settings_ipv6 = cf.zones.settings.ipv6.get(zone_id)
         ipv6_status = settings_ipv6['value']
 
-        print zone_id, zone_name, ssl_status, ipv6_status
+        print(zone_id, zone_name, ssl_status, ipv6_status)
 
 if __name__ == '__main__':
     main()
@@ -110,7 +110,7 @@ def main():
         for zone in zones:
             zone_id = zone['id']
             zone_name = zone['name']
-            print zone_id, zone_name
+            print(zone_id, zone_name)
 
         total_pages = raw_results['result_info']['total_pages']
         if page_number == total_pages:
@@ -152,7 +152,7 @@ def main():
         exit('/zones/dns_records.get %d %s - api call failed' % (e, e))
 
     # print the results - first the zone name
-    print zone_id, zone_name
+    print(zone_id, zone_name)
 
     # then all the DNS records for that zone
     for dns_record in dns_records:
@@ -160,7 +160,7 @@ def main():
         r_type = dns_record['type']
         r_value = dns_record['content']
         r_id = dns_record['id']
-        print '\t', r_id, r_name, r_type, r_value
+        print('\t', r_id, r_name, r_type, r_value)
 
     exit(0)
 
@@ -322,7 +322,7 @@ import CloudFlare
 def main():
     cf = CloudFlare.CloudFlare()
     zones = cf.zones.get(params={'per_page':5})
-    print len(zones)
+    print(len(zones))
 
 if __name__ == '__main__':
     main()
@@ -345,8 +345,9 @@ import CloudFlare
 def main():
     cf = CloudFlare.CloudFlare(raw=True)
     zones = cf.zones.get(params={'per_page':5})
-    print zones.length()
-    print json.dumps(zones, indent=4, sort_keys=True)
+    
+    zones.length()
+    print(json.dumps(zones, indent=4, sort_keys=True))
 
 if __name__ == '__main__':
     main()
@@ -908,7 +909,7 @@ def main():
     for l in dns_records.splitlines():
         if len(l) == 0 or l[0] == ';':
             continue
-        print l
+        print(l)
     exit(0)
 
 if __name__ == '__main__':
