@@ -346,7 +346,7 @@ def main():
     cf = CloudFlare.CloudFlare(raw=True)
     zones = cf.zones.get(params={'per_page':5})
     
-    zones.length()
+    print(zones.length())
     print(json.dumps(zones, indent=4, sort_keys=True))
 
 if __name__ == '__main__':
