@@ -1,5 +1,18 @@
 # cloudflare-python
 
+> [!WARNING]
+> 
+> `v3.x` of this library is a ground-up rewrite of the SDK, using code generation from our OpenAPI spec.
+>
+> This package should be in a usable state for many projects, but expect frequent minor breaking
+> changes as we rename methods and types until GA. If this isn't suitable for you project, we recommend
+> pinning to the `2.x` releases for now.
+>
+> Additionally, we will be archiving the current repository (`cloudflare/python-cloudflare`) in favour
+> of the newer repository (`cloudflare/cloudflare-python`) to ensure consistency with our other
+> libraries. The repository will still be accessible if you wish to use it, however, you will not be
+> able to raise new issues or propose changes. Those should instead be directed to the newer repository.
+
 ## Installation
 
 Two methods are provided to install this software.
