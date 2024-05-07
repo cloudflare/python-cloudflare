@@ -49,6 +49,9 @@ def do_path(cmd, values):
             request_body = values[action]['requestBody']
             if 'content' in request_body and request_body['content']:
                 content_type = ','.join(list(request_body['content'].keys()))
+                if content_type == 'application/json':
+                    # this is the default; so we simply ignore it
+                    content_type = None
 
         if content_type:
             v = {
