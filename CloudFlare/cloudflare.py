@@ -18,30 +18,13 @@ from .api_v4 import api_v4
 from .api_extras import api_extras
 from .api_decode_from_openapi import api_decode_from_openapi
 from .exceptions import CloudFlareAPIError, CloudFlareInternalError
+from .warning_2_20 import warning_2_20, print_warning_2_20
 
 BASE_URL = 'https://api.cloudflare.com/client/v4'
 OPENAPI_URL = 'https://github.com/cloudflare/api-schemas/raw/main/openapi.json'
 
 DEFAULT_GLOBAL_REQUEST_TIMEOUT = 5
 DEFAULT_MAX_REQUEST_RETRIES = 5
-
-MAJOR_VERSION_WARNING = """
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  WARNING  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!!                                                                            !!
-!! You are seeing this warning because you have upgraded to a version that is !!
-!! not intended to be installed.                                              !!
-!!                                                                            !!
-!! This version only exists to catch any accidental upgrades before we        !!
-!! release a major release.                                                   !!
-!!                                                                            !!
-!! You should determine if you need to revert this upgrade and pin to v2.19.* !!
-!! or if you can upgrade to v3.x.                                             !!
-!!                                                                            !!
-!! To see more about upgrading to next major version, please see              !!
-!! https://github.com/cloudflare/python-cloudflare/discussions/191            !!
-!!                                                                            !!
-!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-"""
 
 class CloudFlare():
     """ A Python interface Cloudflare's v4 API.
@@ -68,7 +51,6 @@ class CloudFlare():
 
         def __init__(self, config):
             """ :meta private: """
-            print(MAJOR_VERSION_WARNING)
 
             self.network = None
             self.config = config
@@ -106,6 +88,13 @@ class CloudFlare():
             self.user_agent = user_agent()
 
             self.logger = CFlogger(config['debug']).getLogger() if 'debug' in config and config['debug'] else None
+
+            warning = warning_2_20()
+            if warning:
+                if self.logger:
+                    self.logger.warning('\n' + warning)
+                else:
+                    print_warning_2_20(warning)
 
         def __del__(self):
             if self.network:
@@ -297,7 +286,6 @@ class CloudFlare():
 
         def _call_network(self, method, headers, parts, identifiers, params, data_str, data_json, files):
             """ Cloudflare v4 API"""
-            print(MAJOR_VERSION_WARNING)
 
             if (method is None) or (parts[0] is None):
                 # should never happen
