@@ -397,6 +397,7 @@ def do_it(args):
     binary_file = False
     profile = None
     http_headers = None
+    warnings = True
     method = 'GET'
 
     usage = ('usage: cli4 '
@@ -410,13 +411,14 @@ def do_it(args):
              + '[-b|--binary] '
              + '[-p|--profile profile-name] '
              + '[-h|--header additional-header] '
+             + '[-w|--warnings [True|False]] '
              + '[--get|--patch|--post|--put|--delete] '
              + '[item=value|item=@filename|@filename ...] '
              + '/command ...')
 
     try:
         opts, args = getopt.getopt(args,
-                                   'VhveqjynirdA:bp:h:GPOUD',
+                                   'VhveqjynirdA:bp:h:w:GPOUD',
                                    [
                                        'version', 'help', 'verbose',
                                        'examples',
@@ -428,6 +430,7 @@ def do_it(args):
                                        'binary',
                                        'profile=',
                                        'header=',
+                                       'warnings=',
                                        'get', 'patch', 'post', 'put', 'delete'
                                    ])
     except getopt.GetoptError:
@@ -461,6 +464,15 @@ def do_it(args):
             if http_headers is None:
                 http_headers = []
             http_headers.append(arg)
+        elif opt in ('-w', '--warnings'):
+            if arg is None or arg == '':
+                warnings = None
+            elif arg.lower() in ('yes', 'true', '1'):
+                warnings = True
+            elif arg.lower() in ('no', 'false', '0'):
+                warnings = False
+            else:
+                sys.exit('cli4: --warnings takes boolean True/False argument')
         elif opt in ('-d', '--dump'):
             do_dump = True
         elif opt in ('-A', '--openapi'):
@@ -487,7 +499,7 @@ def do_it(args):
         sys.exit(0)
 
     try:
-        cf = CloudFlare.CloudFlare(debug=verbose, raw=raw, profile=profile, http_headers=http_headers)
+        cf = CloudFlare.CloudFlare(debug=verbose, raw=raw, profile=profile, http_headers=http_headers, warnings=warnings)
     except Exception as e:
         sys.exit(e)
 
