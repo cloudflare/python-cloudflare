@@ -49,7 +49,7 @@ class CloudFlare():
     class _v4base():
         """ :meta private: """
 
-        def __init__(self, config):
+        def __init__(self, config, warnings=True):
             """ :meta private: """
 
             self.network = None
@@ -89,12 +89,14 @@ class CloudFlare():
 
             self.logger = CFlogger(config['debug']).getLogger() if 'debug' in config and config['debug'] else None
 
-            warning = warning_2_20()
-            if warning:
-                if self.logger:
-                    self.logger.warning('\n' + warning)
-                else:
-                    print_warning_2_20(warning)
+            if warnings:
+                # After 2.20.* there is a warning message posted to handle un-pinned versions
+                warning = warning_2_20()
+                if warning:
+                    if self.logger:
+                        self.logger.warning(''.join(['\n       ' + v for v in warning.split('\n')]))
+                    else:
+                        print_warning_2_20(warning)
 
         def __del__(self):
             if self.network:
@@ -1032,7 +1034,7 @@ class CloudFlare():
 
         return self._base.api_from_openapi(url)
 
-    def __init__(self, email=None, key=None, token=None, certtoken=None, debug=False, raw=False, use_sessions=True, profile=None, base_url=None, global_request_timeout=None, max_request_retries=None, http_headers=None):
+    def __init__(self, email=None, key=None, token=None, certtoken=None, debug=False, raw=False, use_sessions=True, profile=None, base_url=None, global_request_timeout=None, max_request_retries=None, http_headers=None, warnings=True):
         """ :meta private: """
 
         self._base = None
@@ -1093,7 +1095,7 @@ class CloudFlare():
             if v == '':
                 config[k] = None
 
-        self._base = self._v4base(config)
+        self._base = self._v4base(config, warnings=warnings)
 
         # add the API calls
         try:

@@ -716,6 +716,7 @@ $ cli4 [-V|--version] [-h|--help] [-v|--verbose] \
     [-b|--binary] \
     [-p|--profile profile-name] \
     [-h|--header additional-header] \
+    [-w|--warnings [True|False]] \
     [--get|--patch|--post|--put|--delete] \
     [item=value|item=@filename|@filename ...] /command ...
 ```
