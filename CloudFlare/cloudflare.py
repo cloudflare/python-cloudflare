@@ -18,7 +18,7 @@ from .api_v4 import api_v4
 from .api_extras import api_extras
 from .api_decode_from_openapi import api_decode_from_openapi
 from .exceptions import CloudFlareAPIError, CloudFlareInternalError
-from .warning_2_20 import warning_2_20, print_warning_2_20
+from .warning_2_20 import warning_2_20, warn_warning_2_20, indent_warning_2_20
 
 BASE_URL = 'https://api.cloudflare.com/client/v4'
 OPENAPI_URL = 'https://github.com/cloudflare/api-schemas/raw/main/openapi.json'
@@ -93,10 +93,11 @@ class CloudFlare():
                 # After 2.20.* there is a warning message posted to handle un-pinned versions
                 warning = warning_2_20()
                 if warning:
+                    # we are running 2.20.* or above and hence it's time to warn the user
                     if self.logger:
-                        self.logger.warning(''.join(['\n       ' + v for v in warning.split('\n')]))
+                        self.logger.warning(indent_warning_2_20(warning))
                     else:
-                        print_warning_2_20(warning)
+                        warn_warning_2_20(indent_warning_2_20(warning))
 
         def __del__(self):
             if self.network:

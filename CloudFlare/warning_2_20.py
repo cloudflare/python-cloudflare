@@ -1,6 +1,7 @@
 """ warning message if version is 2.20 or above (technically, there's no version above 2.20.0) """
 
 import sys
+import warnings
 
 from . import __version__
 
@@ -26,6 +27,19 @@ def warning_2_20():
         return None
     return MAJOR_VERSION_WARNING
 
-def print_warning_2_20(warning):
-    """ print_warning_2_20 """
-    print(warning, file=sys.stderr)
+#def print_warning_2_20(warning):
+#    """ print_warning_2_20 """
+#    # boring stderr message printing - however, warn_ form is prefered
+#    print(warning, file=sys.stderr)
+#    pass
+
+def warn_warning_2_20(warning):
+    """ warn_warning_2_20 """
+    # force these warnings to be shown (even if -Wd isn't used on python command line)
+    warnings.simplefilter('always', PendingDeprecationWarning)
+    # stacklevel=4 cleanly upstacks the calls in cloudflare.py (and hence should chanhge if cloudflare.py changes)
+    warnings.warn(warning,  PendingDeprecationWarning, stacklevel=4)
+
+def indent_warning_2_20(warning):
+    """ indent_warning_2_20 """
+    return ''.join(['\n       ' + v for v in warning.split('\n')])
