@@ -12,7 +12,7 @@ MAJOR_VERSION_WARNING = """\
 !! of these upgrades before Cloudflare releases a new major release under the release number 3.x. !!
 !!                                                                                                !!
 !! Should you determine that you need to revert this upgrade and pin to v2.19.* it is recommended !!
-!! you do the following: pip install --upgrade cloudflare==2.19.* or equivilant.                  !!
+!! you do the following: pip install --upgrade cloudflare==2.19.* or equivalent.                  !!
 !!                                                                                                !!
 !! Or you can upgrade to v3.x. NOTE: Release 3.x will not be code-compatible or call-compatible   !!
 !! with previous releases. To see more about upgrading to next major version, please see:         !!
