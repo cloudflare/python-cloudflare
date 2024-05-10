@@ -4,9 +4,9 @@
 > Soon there will be two Python packages for accessing Cloudflare's API.
 >
 > 1. This original [package](https://github.com/cloudflare/python-cloudflare), which was initially introduced [here](https://blog.cloudflare.com/python-cloudflare/).
-> 2. A ground-up rewrite of the SDK, released under `3.x`, at some point in the future. See [here](https://github.com/cloudflare/python-cloudflare/discussions/191)
+> 2. A ground-up rewrite of the SDK, released under `3.*`, at some point in the future. See [here](https://github.com/cloudflare/python-cloudflare/discussions/191)
 >
-> If you like using this package in it's present form, it is highly recommended that you pin to the `2.x` releases now.
+> If you like using this package in it's present form, it is highly recommended that you pin to the `2.*` releases now.
 >
 > ```bash
 > $ cat ${YOUR_PROJECT}/requirements.txt
@@ -18,13 +18,25 @@
 > ```bash
 > $ pip install --upgrade cloudflare==2.19.*
 > ...
-> Successfully installed cloudflare-2.19.3
+> Successfully installed cloudflare-2.19.4
 > $
 
 > [!WARNING]
-> Release `3.x` will not be code-compatible/call-compatible with previous releases (i.e. release `1.x` and `2.x`).
+> Release `2.20.*` is now available and it will produce a warning message explaining all this via stderr (the standard error output).
+> This messages does not stop the program from operating, it's just a warning.
+> If you wish to surpress this message (which is a bad idea because pinning to `2.19.*` is the right thing to do), then do the following in your code:
+> ```python
+>     cf = CloudFlare.CloudFlare(..., warnings=False)
+> ```
+> Or, if you use `cli4`, then the following.
+> ```bash
+> $ cli4 -w False ...
+>```
 
-When you see this README complete change you will know that `3.x` has been released; however, until then, this code will be released under a `2.19.x` release number.
+> [!WARNING]
+> Release `3.*` will not be code-compatible/call-compatible with previous releases (i.e. release `1.*` and `2.*`).
+
+When you see this README complete change you will know that `3.*` has been released; however, until then, this code will be released under a `2.19.*` release number.
 
 ## Package stats
 
