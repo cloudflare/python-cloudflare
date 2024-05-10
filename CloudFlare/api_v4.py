@@ -612,6 +612,7 @@ def accounts_access(self):
     self.add('AUTH', 'accounts', 'access/keys')
     self.add('AUTH', 'accounts', 'access/keys/rotate')
     self.add('AUTH', 'accounts', 'access/logs/access_requests')
+    self.add('AUTH', 'accounts', 'access/policies')
     self.add('AUTH', 'accounts', 'access/seats')
     self.add('AUTH', 'accounts', 'access/tags')
     self.add('AUTH', 'accounts', 'access/users')
@@ -639,10 +640,15 @@ def zones_waiting_rooms(self):
 def accounts_ai(self):
     """ :meta private: """
 
+    self.add('AUTH', 'accounts', 'ai-gateway/gateways')
+    self.add('AUTH', 'accounts', 'ai-gateway/gateways', 'logs')
+
     self.add('AUTH', 'accounts', 'ai/authors/search')
     self.add('AUTH', 'accounts', 'ai/finetunes')
     self.add('AUTH', 'accounts', 'ai/finetunes', 'finetune-assets', content_type={'POST':'multipart/form-data'})
+    self.add('AUTH', 'accounts', 'ai/finetunes/public')
     self.add('AUTH', 'accounts', 'ai/models/search')
+
     self.add('AUTH', 'accounts', 'ai/run', content_type={'POST':['application/json','application/octet-stream']})
 
     self.add('AUTH', 'accounts', 'ai/run/@cf/baai/bge-base-en-v1.5')
@@ -669,6 +675,7 @@ def accounts_ai(self):
     self.add('AUTH', 'accounts', 'ai/run/@cf/meta/llama-3-8b-instruct')
     self.add('AUTH', 'accounts', 'ai/run/@cf/meta/m2m100-1.2b')
     self.add('AUTH', 'accounts', 'ai/run/@cf/microsoft/phi-2')
+    self.add('AUTH', 'accounts', 'ai/run/@cf/microsoft/phi-3-mini-4k-instruct')
     self.add('AUTH', 'accounts', 'ai/run/@cf/microsoft/resnet-50', content_type={'POST':'application/octet-stream'})
     self.add('AUTH', 'accounts', 'ai/run/@cf/mistral/mistral-7b-instruct-v0.1')
     self.add('AUTH', 'accounts', 'ai/run/@cf/mistral/mistral-7b-instruct-v0.1-vllm')
@@ -686,6 +693,7 @@ def accounts_ai(self):
     self.add('AUTH', 'accounts', 'ai/run/@cf/runwayml/stable-diffusion-v1-5-img2img')
     self.add('AUTH', 'accounts', 'ai/run/@cf/runwayml/stable-diffusion-v1-5-inpainting')
     self.add('AUTH', 'accounts', 'ai/run/@cf/stabilityai/stable-diffusion-xl-base-1.0')
+    self.add('AUTH', 'accounts', 'ai/run/@cf/stabilityai/stable-diffusion-xl-turbo')
     self.add('AUTH', 'accounts', 'ai/run/@cf/sven/test')
     self.add('AUTH', 'accounts', 'ai/run/@cf/thebloke/discolm-german-7b-v1-awq')
     self.add('AUTH', 'accounts', 'ai/run/@cf/thebloke/yarn-mistral-7b-64k-awq')
@@ -693,6 +701,7 @@ def accounts_ai(self):
     self.add('AUTH', 'accounts', 'ai/run/@cf/tinyllama/tinyllama-1.1b-chat-v1.0')
 
     self.add('AUTH', 'accounts', 'ai/run/@hf/baai/bge-base-en-v1.5')
+    self.add('AUTH', 'accounts', 'ai/run/@hf/baai/bge-m3')
     self.add('AUTH', 'accounts', 'ai/run/@hf/google/gemma-7b-it')
     self.add('AUTH', 'accounts', 'ai/run/@hf/mistral/mistral-7b-instruct-v0.2')
     self.add('AUTH', 'accounts', 'ai/run/@hf/nexusflow/starling-lm-7b-beta')
@@ -726,6 +735,7 @@ def accounts_extras(self):
     self.add('AUTH', 'accounts', 'alerting/v3/policies')
 
     self.add('AUTH', 'accounts', 'calls/apps')
+    self.add('AUTH', 'accounts', 'calls/turn_keys')
 
     self.add('AUTH', 'accounts', 'custom_ns')
     self.add('AUTH', 'accounts', 'custom_ns/availability')
@@ -1194,6 +1204,7 @@ def radar_http(self):
 
     self.add('AUTH', 'radar/http/top/ases')
     self.add('AUTH', 'radar/http/top/ases/bot_class')
+    self.add('AUTH', 'radar/http/top/ases/browser_family')
     self.add('AUTH', 'radar/http/top/ases/device_type')
     self.add('AUTH', 'radar/http/top/ases/http_protocol')
     self.add('AUTH', 'radar/http/top/ases/http_version')
@@ -1204,6 +1215,7 @@ def radar_http(self):
     self.add('AUTH', 'radar/http/top/browser_families')
     self.add('AUTH', 'radar/http/top/locations')
     self.add('AUTH', 'radar/http/top/locations/bot_class')
+    self.add('AUTH', 'radar/http/top/locations/browser_family')
     self.add('AUTH', 'radar/http/top/locations/device_type')
     self.add('AUTH', 'radar/http/top/locations/http_protocol')
     self.add('AUTH', 'radar/http/top/locations/http_version')
