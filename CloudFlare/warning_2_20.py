@@ -15,7 +15,7 @@ MAJOR_VERSION_WARNING = """\
 !! you do the following: pip install --upgrade cloudflare==2.19.* or equivalent.                  !!
 !!                                                                                                !!
 !! Or you can upgrade to v3.x. NOTE: Release 3.x will not be code-compatible or call-compatible   !!
-!! with previous releases. To see more about upgrading to next major version, please see:         !!
+!! with previous releases. To see more about upgrading to the next major version, please see:     !!
 !! https://github.com/cloudflare/python-cloudflare/discussions/191                                !!
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\
 """
