@@ -1,5 +1,17 @@
 # Change Log
 
+ - 2024-05-10 11:43:43 +0200 [4281e37](../../commit/4281e371190738232100dd31f79630b31b8caf3c) 2.20.0
+ - 2024-05-10 11:43:20 +0200 [a28996b](../../commit/a28996b6382a7e9fcd16dcd2e475a6cd4b891bf7) Added 2.20.* notes
+ - 2024-05-10 11:35:00 +0200 [7c1b27c](../../commit/7c1b27c8b6d5a7f47a98020716dd767d8b3e1834) extra AI api endpoints
+ - 2024-05-10 11:27:06 +0200 [ba62a0c](../../commit/ba62a0c6625eb38eef51e7dc8390120409cb9831) more api endpoints
+ - 2024-05-09 11:56:55 +0200 [71afe0e](../../commit/71afe0e7a9fcf7b8e17a4a7d293eeb3e7a780f30) moved 2.20.* warnings into a proper Python PendingDeprecationWarning message
+ - 2024-05-08 11:41:37 +0200 [89d76d9](../../commit/89d76d9e23ccce3779aa6080fc7613729bc7fbf1) Merge branch 'spew-warning-for-2.20'
+ - 2024-05-08 11:34:59 +0200 [2720d21](../../commit/2720d21e4227e0a1a7728d50cfe283c346bc1ff9) Added --warnings flag to cli4 and associated warnings= flag to cloudflare() call. Provides an ability to control warning messages on or after 2.20.* release
+ - 2024-05-07 11:54:19 +0200 [ddbe166](../../commit/ddbe16605f96a445a8dd730036ebe85e8416e417) reduce processing of OpenAPI logic when content-type is application/json
+ - 2024-05-07 11:46:45 +0200 [676d258](../../commit/676d258abf89e2c07693756fc63a003049578334) 2.20.* warning now in its own file and warning sent to stderr or logging only if release number 2.20 or above
+ - 2024-05-02 12:49:53 +1000 [3181096](../../commit/31810968cfaefa9bbf3e253f702159a6504efe8d) output major version release imminent warning
+ - 2024-04-29 19:15:50 +0100 [34bcb1b](../../commit/34bcb1b3f504b4ddfd8040e6972ddd2c71bc673c) HTTPError can show up when you plan with the URL value
+ - 2024-04-29 18:38:57 +0100 [7535d9a](../../commit/7535d9a7e00bb3e2623ee11ff466f4bcb75f3161) CHANGELOG.md pushed to github
  - 2024-04-29 18:38:21 +0100 [1bda322](../../commit/1bda322ccb2093c262cb65777327b1d1133d2a5a) 2.19.4
  - 2024-04-29 18:36:37 +0100 [a3cda63](../../commit/a3cda63d40e9bf25cbd90bef76b28ad16285c2ba) #186 - explain how to maps arguments
  - 2024-04-29 18:28:56 +0100 [389029a](../../commit/389029a6c8c20cd125333c81f758ffb718169ab9) #188 - url now uses strings - as it should!
