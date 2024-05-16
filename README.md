@@ -203,8 +203,7 @@ def main():
         exit('No zones found')
 
     # extract the zone_id which is needed to process that zone
-    zone = zones[0]
-    zone_id = zone['id']
+    zone_id = zones[0]['id']
 
     # request the DNS records from that zone
     try:
@@ -697,7 +696,7 @@ def main():
     zone_name = sys.argv[1]
     cf = CloudFlare.CloudFlare()
     zone_info = cf.zones.get(params={'name': zone_name})
-    zone_id = zone_info['id']
+    zone_id = zone_info[0]['id']
 
     dns_name = sys.argv[2]
     dns_records = cf.zones.dns_records.get(zone_id, params={'name':dns_name + '.' + zone_name})
